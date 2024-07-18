@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     height: 100vh;
     margin: 0;
@@ -17,6 +17,7 @@ form {
     border-radius: 5px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
 }
 
 label, input {
@@ -24,19 +25,23 @@ label, input {
     width: 100%;
     margin-bottom: 15px;
 }
-input[type="text"], input[type="email"], input[type="password"] {
+input[type="text"], input[type="email"] {
+    display: block;
     padding: 10px;
-    font-size: 16px;
+    font-size: 15px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+    padding-top: 2px;
+    line-height: 1.2;
+    width: 100%;
 }
+
 
 #body{
     box-sizing: border-box;
-
+    height: 150px
 }
-
 
 #submit {
     padding: 10px;
@@ -68,5 +73,17 @@ input[type="text"], input[type="email"], input[type="password"] {
 #button-container{
     display: flex;
     justify-content: center;
+    margin-top: 20px;
     gap: 50px;
+}
+
+textarea{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical; /* Allow vertical resize */
 }
