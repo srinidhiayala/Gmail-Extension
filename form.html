@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <form>
+            <label for="Recipient">To: </label>
+            <input type="email" id="recipient" name="recipient" placeholder="Recipient" required>
+
+            <label for="Cc">Cc: </label>
+            <input type="email" id="Cc" name="Cc" >
+
+            <label for="BCc">BCc: </label>
+            <input type="email" id="BCc" name="BCc" >
+
+            <label for="Subject">Subject: </label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="Body">Message: </label>
+            <textarea id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
+
+            <div id="button-container">
+                <button id="draft">
+                    Save Draft
+                </button>
+                <button id="submit">
+                    Send
+                </button>
+            </div>
+        
+
+    </form>
+</body>
+</html>

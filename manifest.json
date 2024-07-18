@@ -1,11 +1,20 @@
 {
-    "name": "Gmail Extension",
-    "version":"1.0",
     "manifest_version": 3,
-    "description": "Extension to write and send emails quickly using ChatGPT",
-    "browser_action" : {
-        "default": "icon.png",
-        "default_popup": "index.html"
+    "name": "Gmail Extension",
+    "version": "1.0",
+    "description": "A Chrome extension to write emails quicker",
+    "permissions": ["identity"],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "oauth2": {
+      "client_id": "247917636953-qpsbeaq65t698g5btbr41cb36hhk26b5.apps.googleusercontent.com",
+      "scopes": [
+        "https://www.googleapis.com/auth/gmail.readonly"
+      ]
     }
+  }
+  
 
-}
+
+
