@@ -1,7 +1,6 @@
 {
     "name": "Gmail Extension",
     "version":"1.0",
-    "manifest_version": 2,
     "description": "Extension to write and send emails quickly using ChatGPT",
     "browser_action" : {
         "default": "icon.png",
