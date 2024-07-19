@@ -1,10 +1,6 @@
 const API_KEY = "AIzaSyApTL-pVlc8Uw5hWhFhwH2m7awNh8neaos"
 let user_signed_in = false;
 
-let recipient = document.querySelector("#recipient");
-let subject = document.querySelector("#subject");
-let body_message = document.querySelector("#message");
-
 
 
 chrome.identity.onSignInChanged.addListener(function (account_id, signedIn) {
@@ -51,64 +47,65 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     //             });
     //     });
     // } else if (request.message === 'create_contact') {
-        chrome.identity.getAuthToken({ interactive: true }, function (token) {
-            let fetch_url = `https://people.googleapis.com/v1/people:createContact?key=${API_KEY}`;
+    //     chrome.identity.getAuthToken({ interactive: true }, function (token) {
+    //         let fetch_url = `https://people.googleapis.com/v1/people:createContact?key=${API_KEY}`;
 
-            let fetch_options = {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'names': [
-                        {
-                            "givenName": "Johnny",
-                            "familyName": "Silver"
-                        }
-                    ]
-                })
-            }
+    //         let fetch_options = {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Authorization': `Bearer ${token}`,
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 'names': [
+    //                     {
+    //                         "givenName": "Johnny",
+    //                         "familyName": "Silver"
+    //                     }
+    //                 ]
+    //             })
+    //         }
 
-            fetch(fetch_url, fetch_options)
-                .then(res => res.json())
-                .then(res => console.log(res));
-        });
-    } else if (request.message === 'delete_contact') {
-        chrome.identity.getAuthToken({ interactive: true }, function (token) {
-            let fetch_url = `https://people.googleapis.com/v1/contactGroups/all?maxMembers=20&key=${API_KEY}`;
-            let fetch_options = {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }
+    //         fetch(fetch_url, fetch_options)
+    //             .then(res => res.json())
+    //             .then(res => console.log(res));
+    //     });
+    // } else if (request.message === 'delete_contact') {
+        // chrome.identity.getAuthToken({ interactive: true }, function (token) {
+        //     let fetch_url = `https://people.googleapis.com/v1/contactGroups/all?maxMembers=20&key=${API_KEY}`;
+        //     let fetch_options = {
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`
+        //         }
+        //     }
 
-            fetch(fetch_url, fetch_options)
-                .then(res => res.json())
-                .then(res => {
-                    if (res.memberCount) {
-                        const members = res.memberResourceNames;
+        //     fetch(fetch_url, fetch_options)
+        //         .then(res => res.json())
+        //         .then(res => {
+        //             if (res.memberCount) {
+        //                 const members = res.memberResourceNames;
 
-                        fetch_options.method = 'DELETE';
-                        fetch_url = `https://people.googleapis.com/v1/${members[0]}:deleteContact?key=${API_KEY}`;
+        //                 fetch_options.method = 'DELETE';
+        //                 fetch_url = `https://people.googleapis.com/v1/${members[0]}:deleteContact?key=${API_KEY}`;
 
-                        fetch(fetch_url, fetch_options)
-                            .then(res => console.log(res));
-                    }
-                });
-        });
+        //                 fetch(fetch_url, fetch_options)
+        //                     .then(res => console.log(res));
+        //             }
+        //         });
+        // });
     }else if (request.message === 'send_email') {
         chrome.identity.getAuthToken({ interactive: true }, function (token) {
             let fetch_url = `https://gmail.googleapis.com/gmail/v1/users/me/messages/send?key=${API_KEY}`;
-
+            let { recipient, subject , body_message} = request.data;
             let email = [
                 'Content-Type: text/plain; charset="UTF-8"\n',
                 'MIME-Version: 1.0\n',
                 'Content-Transfer-Encoding: 7bit\n',
-                'to: srinidhi.ayala@gmail.com\n',
-                'subject: Testing123\n\n',
-                'HI THIS IS A TEST'
+                'to:'+recipient+'\n',
+                'subject:'+subject+'\n\n',
+                body_message
             ].join('');
+            console.log(email);
 
             let base64EncodedEmail = btoa(email).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 

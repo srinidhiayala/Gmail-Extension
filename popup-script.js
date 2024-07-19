@@ -1,7 +1,10 @@
-
+const recipient = document.querySelector("#recipient");
+const subject = document.querySelector("#subject");
+const body_message = document.querySelector("#message");
 
 document.querySelector("#submit").addEventListener("click", function() {
-    chrome.runtime.sendMessage({message: "send_email"});
+    
+    chrome.runtime.sendMessage({message: "send_email", data: {recipient:recipient.value,subject:subject.value,body_message:body_message.value}});
   });
 
 document.querySelector("#draft").addEventListener("click", function() {
